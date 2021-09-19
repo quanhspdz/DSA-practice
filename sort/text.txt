@@ -1,0 +1,1 @@
+Nhap n: Nhap arr[0]= Nhap arr[1]= Nhap arr[2]= 
