@@ -66,11 +66,25 @@ void postOrder(NodeTree *root) {
     }
 }
 
+bool searchValue(int value, NodeTree *root) {
+    if (root == NULL) return false;
+
+    if (value == root->data) 
+        return true;
+    if (leftOf(value, root)) {
+        return searchValue(value, root->leftNode);
+    } else if (rightOf(value, root)) {
+        return searchValue(value, root->rightNode);
+    }
+
+    return false;
+}
+
 int main() {
     NodeTree *root = NULL;
 
-    int n;
-    cin >> n;
+    int n, x;
+    cin >> n >> x;
     int *arr = new int[n];
     int i;
     for (i = 0; i < n; i++) 
@@ -80,13 +94,11 @@ int main() {
         root = insertNode(arr[i], root);
     }
 
-
-    preOrder(root);
-    cout << endl;
-    inOrder(root);
-    cout << endl;
-    postOrder(root);
-    cout << endl;
+    if (searchValue(x, root)) {
+        cout << x << " exists in this tree" << endl;
+    } else {
+        cout << x << " does not exist in this tree!" << endl;
+    }
 
     freeNode(root);
     return 0;
