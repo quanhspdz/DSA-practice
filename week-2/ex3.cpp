@@ -1,39 +1,36 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
-class Solution {
-   public:
-   int hIndex(int c[], int n) {
-      int bucket[n + 1];
-        for (int i = 0; i < n + 1; i++)   
-            bucket[i] = 0;
 
-      for(int i = 0; i < n; i++){
-         int x = c[i];
-         if(x >= n){
-            bucket[n]++;
-         } else {
-            bucket[x]++;
-         }
-      }
-      int cnt = 0;
-      for(int i = n; i >= 0; i--){
-         cnt += bucket[i];
-         if(cnt >= i) return i;
-      }
-      return -1;
-   }
-};
-int main(){
-   Solution ob;
+int hIdex(int arr[], int n) {
+    int count[n + 1];
+    for (int i = 0; i < n + 1; i++)   
+            count[i] = 0;
 
-   int n;
+    for(int i = 0; i < n; i++){
+        int value = arr[i];
+        if(value >= n){
+            count[n]++;
+        } else {
+            count[value]++;
+        }
+    }
+    
+    int sumCount = 0;
+    for(int i = n; i >= 0; i--){
+        sumCount += count[i];
+        if(sumCount >= i) return i;
+    }
+    return -1;
+}
+int main() {
+    int n;
     cin >> n;
-   int *v = new int[n];
+    int *arr = new int[n];
     for (int i = 0; i < n; i++) {
-        cin >> v[i];
+        cin >> arr[i];
     }
 
-   cout << (ob.hIndex(v, n)) << endl;
+    cout << hIdex(arr, n) << endl;
 
-   return 0;
+    return 0;
 }
