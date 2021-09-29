@@ -12,58 +12,36 @@ int main() {
     for (int i = 0; i < n2; i++) 
         cin >> arr2[i];
 
-    stack<int> stack1;
-    stack<int> stack2;
-    for (int i = n1 - 1; i >= 0; i--) {
-        stack1.push(arr1[i]);
+    int score = 0;
+    int k1 = 0, k2 = 0, i = 0;
+    int sum1 = 0;
+    while (i < n1 && sum1+ arr1[i] <= x) {
+        sum1 += arr1[i++];
+        k1++;
     }
-    for (int i = n2 - 1; i >= 0; i--) {
-        stack2.push(arr2[i]);
-    }
-
-    stack<int> stackTmp1;
-    stack<int> stackTmp2;
-    long long int sum1 = 0;
-    while (!stack1.empty() && sum1 + stack1.top() <= x) {
-        stackTmp1.push(stack1.top());
-        sum1 += stack1.top();
-        stack1.pop();
-    }
-    long long int sum2 = 0;
-    while (!stack2.empty() && sum2 + stack2.top() <= x) {
-        stackTmp2.push(stack2.top());
-        sum2 += stack2.top();
-        stack2.pop();
+    
+    i = 0;
+    int sum2 = 0;
+    while (i < n2 && sum2 + arr2[i] <= x) {
+        sum2 += arr2[i++];
+        k2++;
     }
 
-    long long int S = sum1 + sum2;
-    int score = stackTmp1.size() + stackTmp2.size();
-    while (SUM > x) {
-        if (!stackTmp1.empty() && !stackTmp2.empty()) {
-            if (stackTmp1.top() > stackTmp2.top()) {
-                SUM -= stackTmp1.top();
-                score--;
-                stackTmp1.pop();
-            } 
-            else {
-                SUM -= stackTmp2.top();
-                score--;
-                stackTmp2.pop();
-            }
+    score = k1 + k2;
+    int sum = sum1 + sum2;
+    while (sum > x) {
+        if (k2 <= 0 || arr1[k1 - 1] > arr2[k2 - 1]) {
+            sum -= arr1[k1 - 1];
+            k1--;
+            score--;
         }
-        else {
-            if (stackTmp2.empty()) {
-                SUM -= stackTmp1.top();
-                score--;
-                stackTmp1.pop();
-            }
-            else if (stackTmp1.empty()){
-                SUM -= stackTmp2.top();
-                score--;
-                stackTmp2.pop();
-            }
+        else if (k1 <= 0 || arr1[k1 - 1] < arr2[k2 - 1]) {
+            sum -= arr2[k2 - 1];
+            k2--;
+            score--;
         }
     }
+
 
     cout << score << endl;
 
