@@ -14,31 +14,20 @@ int main() {
 
     int score = 0;
     int k1 = 0, k2 = 0, i = 0;
-    int sum1 = 0;
-    while (i < n1 && sum1+ arr1[i] <= x) {
-        sum1 += arr1[i++];
-        k1++;
-    }
-    
-    i = 0;
-    int sum2 = 0;
-    while (i < n2 && sum2 + arr2[i] <= x) {
-        sum2 += arr2[i++];
-        k2++;
+    int sum = 0;
+    while (k1 < n1 && sum + arr1[k1] <= x) {
+        sum += arr1[k1++];
     }
 
-    score = k1 + k2;
-    int sum = sum1 + sum2;
-    while (sum > x) {
-        if (k2 <= 0 || arr1[k1 - 1] > arr2[k2 - 1]) {
-            sum -= arr1[k1 - 1];
-            k1--;
-            score--;
+    k2 = 0;
+    score = k1;
+    while (k2 < n2) {
+        sum += arr2[k2++];
+        while (sum > x && k1 > 0) {
+            sum -= arr1[--k1];
         }
-        else if (k1 <= 0 || arr1[k1 - 1] < arr2[k2 - 1]) {
-            sum -= arr2[k2 - 1];
-            k2--;
-            score--;
+        if (sum <= x && k2 + k1 > score) {
+            score = k2 + k1;
         }
     }
 
