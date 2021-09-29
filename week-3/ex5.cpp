@@ -1,28 +1,29 @@
 #include <iostream>
-#include <queue>
+#include <stack>
 using namespace std;
 
 int main() {
+
     int n;
     cin >> n;
+    stack<int> stackNum;
     int command, x;
-    queue<int> queueNum;
-    
+
     while (n > 0) {
         cin >> command;
         switch(command) {
             case 1: {
                 cin >> x;
-                queueNum.push(x);
+                stackNum.push(x);
                 break;
             }
             case 2: {
-                queueNum.pop();
+                stackNum.pop();
                 break;
             }
             case 3: {
-                cout << queueNum.front() << endl;
-            }
+                cout << stackNum.top() << endl;
+            } 
         }
 
         n--;
