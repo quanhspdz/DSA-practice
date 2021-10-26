@@ -1,58 +1,49 @@
 #include <iostream>
 #include <sstream>
+#include <stack>
 using namespace std;
 
+int tong(stack<int> a) {
+	int sum=0;
+	for(int i = 0; i < 2; i++)
+	{
+		sum+=a.top();
+		a.pop();
+	}
+	return sum;
+}
+
 int main() {
-    int n;
+	int n,result = 0;
     cin >> n;
-    string *arr = new string[n + 1];
+    string arr[n];
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
+	stack <int>  a;
 
-    int *score = new int[n + 1];
-    for (int i = 0; i < n; i++) {
-        score[i] = 0;
-    }
+	for (int i = 0; i < n; i++)
+	{
 
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == "D") {
-            if (i > 0) {
-                int k = i - 1;
-                while (score[k] == 0 && k > 0) {
-                    k--;
-                }
-                score[i] = score[k] * 2;
-            }
-        } else if (arr[i] == "C") {
-            if (i > 0) {
-                score[i - 1] = 0;
-            }
-        } else if (arr[i] == "+") {
-            if (i > 1) {
-                int k1 = i - 1;
-                while (score[k1] == 0 && k1 > 1) {
-                    k1--;
-                } 
-                int k2 = k1 - 1;
-                while (score[k2] == 0 && k2 > 0) {
-                    k2--;
-                }
-                score[i] = score[k1] + score[k2];
-            }
-        } else {
-            stringstream stream(arr[i]);
+		if(arr[i] == "+") {
+			int temp = tong(a);
+			a.push(temp);
+		} else if (arr[i] == "C") {
+			a.pop();
+		} else if (arr[i] == "D") {
+			int temp = 2 * a.top();
+			a.push(temp);
+		} else {
+			stringstream stream(arr[i]);
             int x = 0;
             stream >> x;
-            score[i] = x;
-        }
-    }
-
-    int sumScore = 0;
-    for (int i = 0; i < n; i++) {
-        sumScore += score[i];
-    }
-
-    cout << sumScore << endl;
-    return 0;
+			a.push(x);
+		}
+	}
+	 while (a.empty() == false)  {
+          result+=a.top();
+          a.pop();
+     }
+     cout << result << endl;
+     return 0;
 }
