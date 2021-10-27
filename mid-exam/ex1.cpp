@@ -2,12 +2,12 @@
 #include <algorithm>
 using namespace std;
 
-int num_of_tower(int arr[], int k, int n) {
+int num_of_wifi(int arr[], int k, int n) {
     sort(arr, arr + n);
-    int numTowers = 0;
+    int numWifi = 0;
     int i = 0;
     while (i < n) {
-        numTowers++;
+        numWifi++;
         int loc = arr[i] + k;
         while (i < n && arr[i] <= loc)
             i++;
@@ -17,7 +17,7 @@ int num_of_tower(int arr[], int k, int n) {
             i++;
     }
 
-    return numTowers;
+    return numWifi;
 }
 
 int main() {
@@ -28,7 +28,7 @@ int main() {
         cin >> arr[i];
     }
 
-   cout << num_of_tower(arr, k, n) << endl;
+   cout << num_of_wifi(arr, k, n) << endl;
 
     return 0;
 }
