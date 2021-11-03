@@ -22,7 +22,7 @@ int main() {
     }
 
     for (int i = 0; i < n; i++) {
-        printf("%0.1lf\n", medianOfArray(arr, i+ 1));
+        printf("%0.1lf\n", medianOfArray(arr, i + 1));
     }
 
     return 0;
