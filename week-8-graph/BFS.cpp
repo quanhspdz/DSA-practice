@@ -1,67 +1,58 @@
-// A Quick implementation of BFS using
-// vectors and queue
 #include <iostream>
-#include <vector>
+#include <map>
 #include <queue>
-#include <algorithm>
-#define pb push_back
- 
+#include <list>
 using namespace std;
- 
-vector<bool> v;
-vector<vector<int> > g;
- 
-void edge(int a, int b)
-{
-    g[a].pb(b);
-    g[b].pb(a);
-}
- 
-void bfs(int u)
-{
-    priority_queue<int> q;
- 
-    q.push(u);
-    v[u] = true;
- 
-    while (!q.empty()) {
- 
-        int f = q.top();
-        q.pop();
- 
-        cout << f << " ";
-        sort(g[f].begin(), g[f].end());
- 
-        // Enqueue all adjacent of f and mark them visited
-        for (auto i = g[f].begin(); i != g[f].end(); i++) {
-            if (!v[*i]) {
-                q.push(*i);
-                v[*i] = true;
+
+template<typename T>
+class Graph {
+    map<T, list<T>> l;
+
+public: 
+    void addEdge(int x, int y) {
+        l[x].push_back(y);
+        l[y].push_back(x);
+    }
+
+    void bfs(T src) {
+        map<T, bool> visited;
+        queue<T> q;
+        
+        q.push(src);
+        visited[src] = true;
+
+        while (!q.empty()) {
+            T node = q.front();
+            q.pop();
+            cout << node << " ";
+
+            for (int neighbor:l[node]) {
+                if (!visited[neighbor]) {
+                    q.push(neighbor);
+                    visited[neighbor] = true;
+                }
             }
         }
     }
-}
- 
-// Driver code
-int main()
-{
-    int n, e;
-    cin >> n >> e;
- 
-    v.assign(n * 2, false);
-    g.assign(n * 2, vector<int>());
- 
-    int a, b;
-    for (int i = 0; i < e; i++) {
-        cin >> a >> b;
-        edge(a, b);
-    }
- 
-    for (int i = 1; i < n; i++) {
-        if (!v[i])
-            bfs(i);
-    }
+};
+
+int main() {    
+
+    Graph<int> graph;
     
+    int vertex, edge;
+    cin >> vertex >> edge;
+    
+    int n = edge;
+    while (n > 0) {
+        n--;
+        int u, v;
+        cin >> u >> v;
+        graph.addEdge(u, v);
+    }
+
+    graph.bfs(1);
+
     cout << endl;
     return 0;
 }
