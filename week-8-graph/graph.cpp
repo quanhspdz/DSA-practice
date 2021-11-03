@@ -32,6 +32,28 @@ public:
 
         dfs_helper(src, visited);
     }
+
+    void bfs(T src) {
+        map<T, bool> visited;
+        queue<T> q;
+        
+        q.push(src);
+        visited[src] = true;
+
+        while (!q.empty()) {
+            T node = q.front();
+            q.pop();
+            cout << node << " ";
+            
+            l[node].sort();
+            for (int neighbor:l[node]) {
+                if (!visited[neighbor]) {
+                    q.push(neighbor);
+                    visited[neighbor] = true;
+                }
+            }
+        }
+    }
 };
 
 int main() {    
