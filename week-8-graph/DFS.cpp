@@ -2,6 +2,7 @@
 #include <map>
 #include <queue>
 #include <list>
+#include <algorithm>
 using namespace std;
 
 template<typename T>
@@ -14,25 +15,22 @@ public:
         l[y].push_back(x);
     }
 
-    void bfs(T src) {
-        map<T, bool> visited;
-        queue<T> q;
-        
-        q.push(src);
+    void dfs_helper(T src, map<T, bool> &visited) {
+        cout << src << " ";
         visited[src] = true;
 
-        while (!q.empty()) {
-            T node = q.front();
-            q.pop();
-            cout << node << " ";
-
-            for (int neighbor:l[node]) {
-                if (!visited[neighbor]) {
-                    q.push(neighbor);
-                    visited[neighbor] = true;
-                }
+        l[src].sort();
+        for (T neighbor:l[src]) {
+            if (!visited[neighbor]) {
+                dfs_helper(neighbor, visited);
             }
         }
+    }
+
+    void dfs(T src) {
+        map<T, bool> visited;
+
+        dfs_helper(src, visited);
     }
 };
 
@@ -51,7 +49,7 @@ int main() {
         graph.addEdge(u, v);
     }
 
-    graph.bfs(1);
+    graph.dfs(1);
 
     cout << endl;
     return 0;
