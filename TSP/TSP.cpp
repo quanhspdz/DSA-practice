@@ -44,6 +44,8 @@ int main() {
             cin >> dist[i][j];
         }
     }
+
+    VISITED_ALL = (1 << n) - 1;
     //khoi tao 1 mang ban luu khoang cach da duoc tinh, gia tri ban dau la -1
     for (int i = 0; i < (1 << n); i++) {
         for (int j = 0; j < n; j++) {
