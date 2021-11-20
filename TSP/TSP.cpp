@@ -9,8 +9,8 @@ int dist[1000][1000];
 int tempDist[1000][1000];
 //string luu tien trinh di:
 int path[1000][1000];
-int start;
 int VISITED_ALL = (1 << n) - 1;
+int start;
 
 int TSP(int mask, int pos) {
     //neu da tham het cac dinh thi return:
@@ -36,11 +36,12 @@ int TSP(int mask, int pos) {
             }
         }
     }
-
+    //luu vi tri cac dinh de quang duong ngan nhat
     path[mask][pos] = minPos;
 
     return tempDist[mask][pos] = minWeight;
 }
+//ham chay sau khi da tinh duoc TSP
 void showPath_TSP(int mask, int pos) {
     if (pos == start) {
         cout << "(" << start << ") -> ";
