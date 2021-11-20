@@ -8,27 +8,28 @@ int dist[1000][1000];
 //mang sau de luu cac khoang cach da duoc tinh truoc (quy hoach dong):
 int tempDist[1000][1000];
 //string luu tien trinh di:
-string road = "";
+string minRoadMap = "";
 
 int VISITED_ALL = (1 << n) - 1;
 
-int TSP(int mask, int pos) {
+int TSP(int mask, int pos, string roadMap) {
     //neu da tham het cac dinh thi return:
     if (mask == VISITED_ALL) {
         return dist[pos][0];
     }
 
     //neu khoang cach da duoc tinh truoc thi tai su dung:
-    if (tempDist[mask][pos] != -1) {
-        return tempDist[mask][pos];
-    }
+    // if (tempDist[mask][pos] != -1) {
+    //     return tempDist[mask][pos];
+    // }
 
     int minWeight = INT_MAX;
+    int minPos = INT_MAX;
     //dung for de tim den nhung dinh chua duoc tham
     for (int i = 0; i < n; i++) {
         //neu chua dinh chua duoc tham thi:
         if ((mask & (1 << i)) == 0) {
-            int newWeight = dist[pos][i] + TSP(mask | (1 << i), i);
+            int newWeight = dist[pos][i] + TSP(mask | (1 << i), i, roadMap);
             minWeight = min(minWeight, newWeight);
         }
     }
@@ -53,7 +54,7 @@ int main() {
         }
     }
 
-    cout << TSP(1, 0) << endl;
+    cout << TSP(1, 0, "0") << endl;
 
     return 0;
 }
