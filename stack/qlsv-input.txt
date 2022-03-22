@@ -10,3 +10,6 @@ Thang
 Diep Ngu
 234344
 0
+ABC
+123123
+5
