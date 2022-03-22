@@ -11,22 +11,22 @@ struct Node {
     }
 };
 
+
 int main () {
-    Node *firstNode = new Node(1, NULL);
-    Node *secondNode = new Node(2, NULL);
-    Node *thirdNode = new Node (3, NULL);
 
-    firstNode->nextNode = secondNode;
-    secondNode->nextNode = thirdNode;
-
-    Node *p = firstNode;
-    while (p != NULL) {
-        int data = p->data;
-        cout << data << " -> ";
-        p = p->nextNode;
+    Node *startNode = new Node(1, NULL);
+    Node *preNode = startNode;
+    for (int i = 1; i < 10; i++) {
+        Node *newNode = new Node(i + 1, NULL);
+        preNode->nextNode = newNode;
+        preNode = newNode;
     }
-    cout << "NULL" << endl;
-
+    
+    Node *node = startNode;
+    while (node != NULL) {
+        cout << node->data << endl;
+        node = node->nextNode;
+    }
 
     return 0;
 }
